@@ -10,7 +10,8 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function(socket){
   socket.on('chat message', function(message){
     console.log(message);
-    io.emit('chat message', message);
+    socket.broadcast.emit('chat message', message);
+    socket.emit('chat message', message);
   });
 });
 
@@ -21,4 +22,3 @@ app.get('/', function(request, response){
 server.listen(process.env.PORT || 3000, function(){
   console.log('listening on localhost:3000');
 });
-
